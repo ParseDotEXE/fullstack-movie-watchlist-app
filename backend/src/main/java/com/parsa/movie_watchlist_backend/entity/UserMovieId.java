@@ -39,7 +39,7 @@ public class UserMovieId implements Serializable {
     //equals method
     @Override
     public boolean equals(Object o){
-        if (this == o){
+        if (this == o){ //if they have the same reference
             return true;
         }
         if(o == null || o.getClass() != this.getClass()){
