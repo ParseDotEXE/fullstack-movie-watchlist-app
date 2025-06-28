@@ -20,6 +20,7 @@ Database Relationships:
 - User to UserMovie: One-to-Many (one user has many UserMovie records)
 - Movie to UserMovie: One-to-Many (one movie can be in many users' lists)
 - User to Movie: Many-to-Many (through UserMovie as the join table)
+
 Entity Design:
 - User Entity: id, username, email, password
 - Movie Entity: Stores only movie references (tmdbId) and caches poster URL (posterUrl) for faster loading with TMDB API
