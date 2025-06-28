@@ -15,7 +15,7 @@ public class User {
     private String email;
     private String password;
 
-    //TODO: constructors, getters, setters
+    //TODO: constructors, getters, setters -> done
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
