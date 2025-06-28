@@ -7,8 +7,8 @@ public class UserMovieId implements Serializable {
     private Long userId;
     private Integer movieId;
 
-    // TODO: default constructor, pram constructor, equals() and hashCode() method,
-    // getters/setters
+    // TODO: default constructor, pram constructor, equals() and hashCode() method -> done
+
     // default const for JPA
     public UserMovieId() {
     }
