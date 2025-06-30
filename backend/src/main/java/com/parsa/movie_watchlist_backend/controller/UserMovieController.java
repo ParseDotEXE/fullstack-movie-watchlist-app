@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.parsa.movie_watchlist_backend.dto.WatchedRequest;
 import com.parsa.movie_watchlist_backend.entity.Movie;
 import com.parsa.movie_watchlist_backend.entity.User;
 import com.parsa.movie_watchlist_backend.entity.UserMovie;
+import com.parsa.movie_watchlist_backend.entity.UserMovieId;
 
 
 
@@ -79,9 +81,18 @@ public class UserMovieController {
     }
     //mark as watched
     @PutMapping("/{userId}/movies/{movieId}/watched")
-    public UserMovie markAsWatched(@PathVariable Long userId, @RequestBody Movie movie) {
-        
-        
+    public UserMovie markAsWatched(@PathVariable Long userId, @PathVariable Integer movieId, @RequestBody WatchedRequest request) {
+        //find the UserMovie entity with composite key
+        UserMovieId userMovieId = new UserMovieId(userId, movieId);
+        Optional<UserMovie> userMovie = userMovieRepository.findByUserIdAndMovieId(userId, movieId);
+        //now update the status, rating, and dateWatched of the movie
+        UserMovie entity = userMovie.get();
+        entity.setStatus(1); //1 for watched
+        entity.setRating(request.getRating()); //set rating from request
+        entity.setDateWatched(LocalDateTime.now()); //set date watched to now
+        //save the updated entity
+        userMovieRepository.save(entity);
+        //return the updated entity
         return entity;
     }
     //update rating
