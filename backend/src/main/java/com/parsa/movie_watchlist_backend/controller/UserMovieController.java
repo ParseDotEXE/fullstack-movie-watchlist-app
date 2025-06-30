@@ -1,11 +1,16 @@
 package com.parsa.movie_watchlist_backend.controller;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.parsa.movie_watchlist_backend.repository.MovieRepository;
 import com.parsa.movie_watchlist_backend.repository.UserMovieRepository;
+import com.parsa.movie_watchlist_backend.repository.UserRepository;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +20,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.parsa.movie_watchlist_backend.entity.Movie;
+import com.parsa.movie_watchlist_backend.entity.User;
 import com.parsa.movie_watchlist_backend.entity.UserMovie;
 
 
@@ -26,14 +32,37 @@ import com.parsa.movie_watchlist_backend.entity.UserMovie;
 public class UserMovieController {
     @Autowired
     private UserMovieRepository userMovieRepository;
-
+    @Autowired
+    private MovieRepository movieRepository;
+    @Autowired
+    private UserRepository userRepository; //TODO
     //methods
     //add to watchlist
     @PostMapping("/{userId}/watchlist")
     public UserMovie addToWatchlist(@PathVariable Long userId, @RequestBody Movie movie) {
+        //save movie to database if it doesn't exist
+        if(movieRepository.findById(movie.getTmdbId()).isEmpty()) {
+            //add it to the database
+            movieRepository.save(movie);
+        }
+        //create UserMovie entity to link user and current movie
         UserMovie entity = new UserMovie();
-        
-        
+        //user must exist in database before adding to watchlist - find them
+        User user = userRepository.findById(userId).orElse(null);
+        if (user == null) {
+            // Handle case where user doesn't exist
+            throw new RuntimeException("User not found");
+        }
+        entity.setUser(user); //set user object -> it has the user id with it
+        entity.setUserId(user.getId()); //set user id
+        entity.setMovie(movie); //set movie object
+        entity.setMovieId(movie.getTmdbId()); //set movie id
+        entity.setStatus(0); //0 for watchlist
+        entity.setDateAdded(LocalDateTime.now()); //added now
+
+        //save the userMovie entity
+        userMovieRepository.save(entity);
+        //return the entity
         return entity;
     }
     //get watchlist

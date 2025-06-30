@@ -29,13 +29,13 @@ public class UserMovie {
     }
 
     // with param
-    public UserMovie(User user, Movie movie) {
-        this.movie = movie;
-        this.user = user;
-        this.movieId = movie.getTmdbId();
-        this.userId = user.getId();
-        this.dateAdded = LocalDateTime.now();
-        this.status = 0;
+    public UserMovie(User user, Movie movie) { //to link a user and a movie we need...
+        this.movie = movie; //the movie object
+        this.user = user; //the user object
+        this.movieId = movie.getTmdbId(); //the movie id
+        this.userId = user.getId(); //the user id
+        this.dateAdded = LocalDateTime.now(); //the date added is now 
+        this.status = 0; //0 for watchlist
     }
 
     // constructor for watched movies
