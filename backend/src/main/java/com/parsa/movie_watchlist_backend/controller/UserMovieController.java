@@ -83,8 +83,11 @@ public class UserMovieController {
     @PutMapping("/{userId}/movies/{movieId}/watched")
     public UserMovie markAsWatched(@PathVariable Long userId, @PathVariable Integer movieId, @RequestBody WatchedRequest request) {
         //find the UserMovie entity with composite key
-        UserMovieId userMovieId = new UserMovieId(userId, movieId);
         Optional<UserMovie> userMovie = userMovieRepository.findByUserIdAndMovieId(userId, movieId);
+        //first check if the UserMovie entity exists
+        if (userMovie.isEmpty()) {
+            throw new RuntimeException("UserMovie not found");
+        }
         //now update the status, rating, and dateWatched of the movie
         UserMovie entity = userMovie.get();
         entity.setStatus(1); //1 for watched
@@ -97,14 +100,32 @@ public class UserMovieController {
     }
     //update rating
     @PutMapping("/{userId}/movies/{movieId}/rating")
-    public String putMethodName(@PathVariable String id, @RequestBody String entity) {
-        //TODO: process PUT request
-        
+    public UserMovie updateRating(@PathVariable Long userId, @PathVariable Integer movieId, @RequestBody WatchedRequest request) {
+        //find the userMovie entity with custom method
+        Optional<UserMovie> userMovie = userMovieRepository.findByUserIdAndMovieId(userId, movieId);
+        //check if the UserMovie entity exists
+        if (userMovie.isEmpty()) {
+            throw new RuntimeException("UserMovie not found");
+        }
+        //update its rating
+        UserMovie entity = userMovie.get();
+        entity.setRating(request.getRating()); //set rating from request
+        //save the updated entity
+        userMovieRepository.save(entity);
+        //return the updated entity
         return entity;
     }
     //delete movie
     @DeleteMapping("/{userId}/movies/{movieId}")
-    
-    
-    
+    public void deleteMovie(@PathVariable Long userId, @PathVariable Integer movieId) {
+        //find the UserMovie entity with custom method
+        Optional<UserMovie> userMovie = userMovieRepository.findByUserIdAndMovieId(userId, movieId);
+        //check if the UserMovie entity exists
+        if (userMovie.isEmpty()) {
+            throw new RuntimeException("UserMovie not found");
+        }
+        //delete the entity
+        UserMovie entity = userMovie.get();
+        userMovieRepository.delete(entity);
+    }    
 }
