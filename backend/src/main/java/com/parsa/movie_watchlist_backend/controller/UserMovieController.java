@@ -35,7 +35,7 @@ public class UserMovieController {
     @Autowired
     private MovieRepository movieRepository;
     @Autowired
-    private UserRepository userRepository; //TODO
+    private UserRepository userRepository; //TODO -> done
     //methods
     //add to watchlist
     @PostMapping("/{userId}/watchlist")
@@ -50,7 +50,7 @@ public class UserMovieController {
         //user must exist in database before adding to watchlist - find them
         User user = userRepository.findById(userId).orElse(null);
         if (user == null) {
-            // Handle case where user doesn't exist
+            //handle case where user doesn't exist
             throw new RuntimeException("User not found");
         }
         entity.setUser(user); //set user object -> it has the user id with it
@@ -79,8 +79,8 @@ public class UserMovieController {
     }
     //mark as watched
     @PutMapping("/{userId}/movies/{movieId}/watched")
-    public String putMethodName(@PathVariable String id, @RequestBody String entity) {
-        //TODO: process PUT request
+    public UserMovie markAsWatched(@PathVariable Long userId, @RequestBody Movie movie) {
+        
         
         return entity;
     }
