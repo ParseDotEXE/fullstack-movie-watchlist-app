@@ -57,6 +57,14 @@ public class UserController {
                     String hashedPassword = PasswordHasher.hashPassword(salt, signupData.getPassword().getBytes());
                     
                     newUser.setPassword(hashedPassword); // set the hashed password
+
+                    //save the user to the databse
+                    User savedUser = userRepository.save(newUser);
+                    
+                    // return the created user (without password)
+                    savedUser.setPassword(null); // remove password from the returned user object
+                    savedUser.setSalt(null); // remove salt from the returned user object
+                    return savedUser;
                 
                 }catch (Exception e) {
                     throw new RuntimeException("Error hashing password: " + e.getMessage());
@@ -71,8 +79,6 @@ public class UserController {
         // - if password is too short and or does not meet criteria, return an error
         // if username is already taken, return an error
         // if there are empty fields, return an error
-
-        return null;
     }
 
     // log in the user by email and password
