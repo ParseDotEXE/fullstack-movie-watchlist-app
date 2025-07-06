@@ -11,12 +11,15 @@ public class UserMovie {
     private Long userId;
     @Id
     Integer movieId;
+    
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    User user;
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    private User user;
+    
     @ManyToOne
-    @JoinColumn(name = "movie_id")
-    Movie movie;
+    @JoinColumn(name = "movie_id", insertable = false, updatable = false)
+    private Movie movie;
+    
     Integer status;
     Integer rating;
     LocalDateTime dateAdded;
