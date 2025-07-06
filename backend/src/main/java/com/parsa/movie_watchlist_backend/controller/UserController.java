@@ -90,15 +90,20 @@ public class UserController {
         // TODO:
         // find the user by email in database
         if(userRepository.findByEmail(loginData.getEmail()).isPresent()){
-            User user = userRepository.findByEmail(loginData.getEmail()).get();
+            User user = userRepository.findByEmail(loginData.getEmail()).get(); // find the user by email
+            
             //verify the password matches
             try{
-                byte[] saltBytes = java.util.Base64.getDecoder().decode(user.getSalt());
+                byte[] saltBytes = java.util.Base64.getDecoder().decode(user.getSalt()); //get the salt from the user object
+                
+                //check if the password matches the hashed password
                 if(PasswordHasher.verifyPassword(loginData.getPassword(), user.getPassword(), saltBytes)){
                     // if password matches, retur the user (without password and salt)
+                    
                     user.setPassword(null); // remove password from the returned user object
                     user.setSalt(null); // remove salt from the returned user object
                     return user; // return the user object without password and salt
+                
                 }else{
                     // if password does not match, return an error
                     throw new RuntimeException("Invalid password");
@@ -110,12 +115,5 @@ public class UserController {
             // if user does not exist, return an error
             throw new RuntimeException("User not found");
         }
-        // check if the user already exists
-        // verify password matches
-        // return user if valid (without password)
-        // return error if user does not exist or password is incorrect
-        // edge cases:
-        // user not found
-        // password does not match
     }
 }
