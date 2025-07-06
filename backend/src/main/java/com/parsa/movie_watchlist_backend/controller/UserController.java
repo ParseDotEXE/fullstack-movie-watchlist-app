@@ -14,7 +14,7 @@ import com.parsa.movie_watchlist_backend.repository.UserRepository;
 
 //handles user-related endpoints
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/auth")
 public class UserController {
     @Autowired
     private UserRepository userRepository; //repository to access user data
@@ -24,6 +24,25 @@ public class UserController {
    public User signup(@RequestBody SignupRequest signupData) {
        //TODO:
        //validate input data to see if email and password already exist
+       if(userRepository.findByEmail(signupData.getEmail()).isEmpty()){
+              //if email does not exist, make the account
+              if(userRepository.existsByUsername(signupData.getUsername())){
+                    //if the username is already taken return an error
+                    throw new RuntimeException("Username already taken");
+              }else if(signupData.getPassword().length() < 6 && !signupData.getPassword().contains("!@#$%^&*") && !signupData.getPassword().contains("123456") && !signupData.getPassword().contains("abcdefghijklmnopqrstuvwxyz") && !signupData.getPassword().contains("ABCDEFGHIJKLMNOPQRSTUVWXYZ")){
+                    //if the password is too short or does not meet criteria, return an error
+                    throw new RuntimeException("Password must be at least 6 characters long and contain at least one special character, one number, and one uppercase letter");
+              }else{
+                    //create a new User object from SignupRequest data
+                    User newUser = new User();
+                    newUser.setEmail(signupData.getEmail());
+                    newUser.setUsername(signupData.getUsername());
+                    //hash the password before saving it in production
+                    
+                    newUser.setPassword(signupData.getPassword()); // Note: Password should be hashed before saving in production
+
+              }
+       }
        //create a new User object from SignupRequest data
        //save user to database
        //return the created user (without password)
