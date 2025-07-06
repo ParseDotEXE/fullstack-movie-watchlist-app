@@ -1,17 +1,27 @@
 package com.parsa.movie_watchlist_backend.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.parsa.movie_watchlist_backend.dto.AuthenticationRequest;
+import com.parsa.movie_watchlist_backend.dto.SignupRequest;
 import com.parsa.movie_watchlist_backend.entity.User;
+import com.parsa.movie_watchlist_backend.repository.UserRepository;
 
 //handles user-related endpoints
-@Controller
+@RestController
+@RequestMapping("/api/users")
 public class UserController {
+    @Autowired
+    private UserRepository userRepository; //repository to access user data
+
     // authenticate the user
-   @PostMapping("/api/auth/login")
-   public User signup(@RequestBody  signupData) {
+   @PostMapping("/signup")
+   public User signup(@RequestBody SignupRequest signupData) {
        //TODO:
        //validate input data to see if email and password already exist
        //create a new User object from SignupRequest data
@@ -24,12 +34,12 @@ public class UserController {
          //if there are empty fields, return an error
 
        
-       return entity;
+       return null;
    }
 
     // log in the user by email and password
-   @PostMapping("/api/auth/login")
-   public User login(@RequestBody loginData) {
+   @PostMapping("/login")
+   public User login(@RequestBody AuthenticationRequest loginData) {
          //TODO:
          //find the user by email in database
          //check if the user already exists
@@ -39,6 +49,8 @@ public class UserController {
          //edge cases:
          //user not found
          //password does not match
+
+         return null; // Temporary return to satisfy compiler
    }
     
 }
