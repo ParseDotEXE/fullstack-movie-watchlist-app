@@ -13,11 +13,11 @@ public class UserMovie {
     Integer movieId;
     
     @ManyToOne
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    @JoinColumn(name = "user_ref")
     private User user;
     
     @ManyToOne
-    @JoinColumn(name = "movie_id", insertable = false, updatable = false)
+    @JoinColumn(name = "movie_ref")
     private Movie movie;
     
     Integer status;

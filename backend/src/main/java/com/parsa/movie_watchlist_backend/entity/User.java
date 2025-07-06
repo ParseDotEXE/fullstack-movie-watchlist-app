@@ -7,6 +7,7 @@ import java.time.LocalDateTime; //for timestamping
 import java.util.Objects;
 
 @Entity // indicates that this class is a JPA entity
+@Table(name = "users")
 public class User {
     @Id // indicates that this field is the primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto-generate the ID
