@@ -54,7 +54,7 @@ public class UserController {
                 
                 //use the PasswordHasher utility to hash the password with the salt
                 try {
-                    String hashedPassword = PasswordHasher.hashPassword(signupData.getPassword(), signupData.getPassword().getBytes());
+                    String hashedPassword = PasswordHasher.hashPassword(signupData.getPassword(), saltBytes);
                     
                     newUser.setPassword(hashedPassword); // set the hashed password
 
