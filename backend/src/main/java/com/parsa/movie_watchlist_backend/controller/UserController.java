@@ -33,11 +33,11 @@ public class UserController {
                 throw new RuntimeException("Username already taken");
             }
             //check if the password meets the criteria 
-            else if (signupData.getPassword().length() < 6 ||
-                    !signupData.getPassword().matches(".*[!@#$%^&*].*") ||
-                    !signupData.getPassword().matches(".*[0-9].*") ||
-                    !signupData.getPassword().matches(".*[A-Z].*") ||
-                    !signupData.getPassword().matches(".*[a-z].*")) {
+            else if (signupData.getPassword().length() < 6 || //must have at least 6 characters
+                    !signupData.getPassword().matches(".*[!@#$%^&*].*") || // must have at least one special character
+                    !signupData.getPassword().matches(".*[0-9].*") || // must have at least one number
+                    !signupData.getPassword().matches(".*[A-Z].*") || // must have at least one uppercase letter
+                    !signupData.getPassword().matches(".*[a-z].*")) { // must have at least one lowercase letter
                 throw new RuntimeException(
                         "Password must be at least 6 characters with special char, number, uppercase, and lowercase letter");
             } else {
@@ -89,6 +89,27 @@ public class UserController {
     public User login(@RequestBody AuthenticationRequest loginData) {
         // TODO:
         // find the user by email in database
+        if(userRepository.findByEmail(loginData.getEmail()).isPresent()){
+            User user = userRepository.findByEmail(loginData.getEmail()).get();
+            //verify the password matches
+            try{
+                byte[] saltBytes = java.util.Base64.getDecoder().decode(user.getSalt());
+                if(PasswordHasher.verifyPassword(loginData.getPassword(), user.getPassword(), saltBytes)){
+                    // if password matches, retur the user (without password and salt)
+                    user.setPassword(null); // remove password from the returned user object
+                    user.setSalt(null); // remove salt from the returned user object
+                    return user; // return the user object without password and salt
+                }else{
+                    // if password does not match, return an error
+                    throw new RuntimeException("Invalid password");
+                }
+            } catch (Exception e) {
+                throw new RuntimeException("Error verifying password: " + e.getMessage());
+            }
+        }else{
+            // if user does not exist, return an error
+            throw new RuntimeException("User not found");
+        }
         // check if the user already exists
         // verify password matches
         // return user if valid (without password)
@@ -96,8 +117,5 @@ public class UserController {
         // edge cases:
         // user not found
         // password does not match
-
-        return null; // Temporary return to satisfy compiler
     }
-
 }
