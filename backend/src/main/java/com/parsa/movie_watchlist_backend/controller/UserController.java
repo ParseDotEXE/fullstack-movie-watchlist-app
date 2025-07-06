@@ -54,7 +54,7 @@ public class UserController {
                 
                 //use the PasswordHasher utility to hash the password with the salt
                 try {
-                    String hashedPassword = PasswordHasher.hashPassword(salt, signupData.getPassword().getBytes());
+                    String hashedPassword = PasswordHasher.hashPassword(signupData.getPassword(), signupData.getPassword().getBytes());
                     
                     newUser.setPassword(hashedPassword); // set the hashed password
 
@@ -67,9 +67,12 @@ public class UserController {
                     return savedUser;
                 
                 }catch (Exception e) {
-                    throw new RuntimeException("Error hashing password: " + e.getMessage());
+                    throw new RuntimeException("Error creating user: " + e.getMessage());
                 }
             }
+        }else{
+            // if email already exists, return an error
+            throw new RuntimeException("Email already exists");
         }
         // create a new User object from SignupRequest data
         // save user to database
