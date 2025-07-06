@@ -11,6 +11,7 @@ import com.parsa.movie_watchlist_backend.dto.AuthenticationRequest;
 import com.parsa.movie_watchlist_backend.dto.SignupRequest;
 import com.parsa.movie_watchlist_backend.entity.User;
 import com.parsa.movie_watchlist_backend.repository.UserRepository;
+import com.parsa.movie_watchlist_backend.util.PasswordHasher;
 
 //handles user-related endpoints
 @RestController
@@ -26,10 +27,13 @@ public class UserController {
         // validate input data to see if email and password already exist
         if (userRepository.findByEmail(signupData.getEmail()).isEmpty()) {
             // if email does not exist, make the account
+            
             if (userRepository.existsByUsername(signupData.getUsername())) {
                 // if the username is already taken return an error
                 throw new RuntimeException("Username already taken");
-            } else if (signupData.getPassword().length() < 6 ||
+            }
+            //check if the password meets the criteria 
+            else if (signupData.getPassword().length() < 6 ||
                     !signupData.getPassword().matches(".*[!@#$%^&*].*") ||
                     !signupData.getPassword().matches(".*[0-9].*") ||
                     !signupData.getPassword().matches(".*[A-Z].*") ||
@@ -39,13 +43,24 @@ public class UserController {
             } else {
                 // create a new User object from SignupRequest data
                 User newUser = new User();
-                newUser.setEmail(signupData.getEmail());
-                newUser.setUsername(signupData.getUsername());
+                newUser.setEmail(signupData.getEmail()); // set the email from signup data
+                newUser.setUsername(signupData.getUsername()); // set the username from signup data
+                
                 // hash the password before saving it in production
-
-                newUser.setPassword(signupData.getPassword()); // Note: Password should be hashed before saving in
-                                                               // production
-
+                byte[] saltBytes = PasswordHasher.generateSalt(); // generate a random salt
+                String salt = java.util.Base64.getEncoder().encodeToString(saltBytes); // encode salt to string
+                
+                newUser.setSalt(salt); //set the salt for password hashing
+                
+                //use the PasswordHasher utility to hash the password with the salt
+                try {
+                    String hashedPassword = PasswordHasher.hashPassword(salt, signupData.getPassword().getBytes());
+                    
+                    newUser.setPassword(hashedPassword); // set the hashed password
+                
+                }catch (Exception e) {
+                    throw new RuntimeException("Error hashing password: " + e.getMessage());
+                }
             }
         }
         // create a new User object from SignupRequest data
