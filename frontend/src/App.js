@@ -5,6 +5,8 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import './App.css';
+import MovieSearch from './pages/MovieSearch';
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -63,8 +65,12 @@ function App() {
           
           {/* Default redirect */}
           <Route 
-            path="/" 
+            path="" 
             element={user ? <Navigate to="/dashboard" /> : <Navigate to="/login" />} 
+          />
+          <Route 
+            path="/search" 
+            element={user ? <MovieSearch user={user} /> : <Navigate to="/login" />} 
           />
         </Routes>
       </div>

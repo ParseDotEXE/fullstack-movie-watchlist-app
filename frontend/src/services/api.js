@@ -47,4 +47,32 @@ export const movieAPI = {
     api.delete(`/users/${userId}/movies/${movieId}`),
 };
 
+// TMDB API configuration
+const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
+const TMDB_API_KEY = 'd823bd667bce6776a3131e97fb2e6bbc'; 
+
+// TMDB API calls
+export const tmdbAPI = {
+  // Search for movies
+  searchMovies: (query) => 
+    axios.get(`${TMDB_BASE_URL}/search/movie`, {
+      params: {
+        api_key: TMDB_API_KEY,
+        query: query,
+        language: 'en-US',
+        page: 1
+      }
+    }),
+  
+  // Get popular movies
+  getPopularMovies: () =>
+    axios.get(`${TMDB_BASE_URL}/movie/popular`, {
+      params: {
+        api_key: TMDB_API_KEY,
+        language: 'en-US',
+        page: 1
+      }
+    })
+};
+
 export default api;
