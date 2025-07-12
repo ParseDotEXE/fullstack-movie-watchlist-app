@@ -1,4 +1,5 @@
 import axios from 'axios';
+import tmdbConfig from '../config/tmdb';
 
 // Base URL for your Spring Boot backend
 const API_BASE_URL = 'http://localhost:8080/api';
@@ -49,7 +50,7 @@ export const movieAPI = {
 
 // TMDB API configuration
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
-const TMDB_API_KEY = process.env.REACT_APP_TMDB_API_KEY; 
+const TMDB_API_KEY = tmdbConfig.apiKey; 
 
 // TMDB API calls
 export const tmdbAPI = {
