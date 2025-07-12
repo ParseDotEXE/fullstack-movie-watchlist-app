@@ -5,6 +5,7 @@ import org.hibernate.annotations.CreationTimestamp; //for timestamping
 import org.hibernate.annotations.UpdateTimestamp; //for timestamping
 import java.time.LocalDateTime; //for timestamping
 import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity // indicates that this class is a JPA entity
 @Table(name = "users")
@@ -14,7 +15,9 @@ public class User {
     private Long id;
     private String username;
     private String email;
+    @JsonIgnore // prevents password from being serialized to JSON
     private String password;
+    @JsonIgnore // prevents salt from being serialized to JSON
     private String salt; // for password hashing
 
     // TODO: constructors, getters, setters -> done

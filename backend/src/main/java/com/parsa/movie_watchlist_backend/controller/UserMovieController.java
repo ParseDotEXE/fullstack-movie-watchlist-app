@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
- c
 import com.parsa.movie_watchlist_backend.repository.MovieRepository;
 import com.parsa.movie_watchlist_backend.repository.UserMovieRepository;
 import com.parsa.movie_watchlist_backend.repository.UserRepository;
@@ -62,6 +61,8 @@ public class UserMovieController {
         entity.setStatus(0); //0 for watchlist
         entity.setDateAdded(LocalDateTime.now()); //added now
 
+        
+
         //save the userMovie entity
         userMovieRepository.save(entity);
         //return the entity
@@ -69,14 +70,21 @@ public class UserMovieController {
     }
     //get watchlist
     @GetMapping("/{userId}/watchlist")
-    public List<UserMovie> getWatchlist(@PathVariable Long userId) {
+    public Object getWatchlist(@PathVariable Long userId) {
         List<UserMovie> watchlist = userMovieRepository.findByUserIdAndStatus(userId, 0);
+        if(watchlist.isEmpty()) {
+            return "There are no movies in your watchlist :(";
+        }
         return watchlist;
     }
     //get watched movies
     @GetMapping("/{userId}/watched")
-    public List<UserMovie> getWatchedlist(@PathVariable Long userId) {
+    public Object getWatchedlist(@PathVariable Long userId) {
         List<UserMovie> watchedlist = userMovieRepository.findByUserIdAndStatus(userId, 1);
+        if(watchedlist.isEmpty()) {
+            return "Seems like you haven't watched any movies yet :(";
+        }
+        //return the watched list
         return watchedlist;
     }
     //mark as watched

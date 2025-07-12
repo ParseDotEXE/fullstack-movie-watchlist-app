@@ -61,9 +61,7 @@ public class UserController {
                     //save the user to the databse
                     User savedUser = userRepository.save(newUser);
                     
-                    // return the created user (without password)
-                    savedUser.setPassword(null); // remove password from the returned user object
-                    savedUser.setSalt(null); // remove salt from the returned user object
+                    // return the created user
                     return savedUser;
                 
                 }catch (Exception e) {
@@ -100,8 +98,7 @@ public class UserController {
                 if(PasswordHasher.verifyPassword(loginData.getPassword(), user.getPassword(), saltBytes)){
                     // if password matches, retur the user (without password and salt)
                     
-                    user.setPassword(null); // remove password from the returned user object
-                    user.setSalt(null); // remove salt from the returned user object
+                    //return user
                     return user; // return the user object without password and salt
                 
                 }else{
