@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { authAPI } from '../services/api';
+import { Link } from 'react-router-dom';
 
 const Login = ({ onLogin }) => {
   const [formData, setFormData] = useState({
@@ -86,7 +87,7 @@ const Login = ({ onLogin }) => {
 
               <div className="text-center mt-3">
                 <small className="text-muted">
-                  Don't have an account? <a href="#signup">Sign up here</a>
+                  Don't have an account? <Link to="/signup">Sign up here</Link>
                 </small>
               </div>
             </div>

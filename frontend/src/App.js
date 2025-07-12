@@ -6,7 +6,8 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import './App.css';
 import MovieSearch from './pages/MovieSearch';
-
+import Watchlist from './pages/Watchlist';
+import Watched from './pages/Watched';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -71,6 +72,14 @@ function App() {
           <Route 
             path="/search" 
             element={user ? <MovieSearch user={user} /> : <Navigate to="/login" />} 
+          />
+          <Route 
+            path="/watchlist" 
+            element={user ? <Watchlist user={user} /> : <Navigate to="/login" />} 
+          />
+          <Route 
+            path="/watched" 
+            element={user ? <Watched user={user} /> : <Navigate to="/login" />} 
           />
         </Routes>
       </div>

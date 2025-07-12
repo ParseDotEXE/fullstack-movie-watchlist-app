@@ -40,6 +40,14 @@ const MovieSearch = ({ user }) => {
   };
 
   const addToWatchlist = async (movie) => {
+    console.log('=== DEBUG INFO ===');
+    console.log('Full user object:', user);
+    console.log('Movie object:', movie);
+    console.log('Movie data being sent:', {
+        tmdbId: movie.id,
+        title: movie.title,
+        posterUrl: movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : null
+    });
     try {
       const movieData = {
         tmdbId: movie.id,
