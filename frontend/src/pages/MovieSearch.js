@@ -13,6 +13,7 @@ const MovieSearch = ({ user }) => {
   }, []);
 
   const loadPopularMovies = async () => {
+    console.log('TMDB API Key:', process.env.REACT_APP_TMDB_API_KEY);
     setLoading(true);
     try {
       const response = await tmdbAPI.getPopularMovies();
