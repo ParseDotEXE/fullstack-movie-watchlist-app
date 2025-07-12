@@ -49,7 +49,7 @@ export const movieAPI = {
 
 // TMDB API configuration
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
-const TMDB_API_KEY = 'd823bd667bce6776a3131e97fb2e6bbc'; 
+const TMDB_API_KEY = ProcessingInstruction.env.REACT_APP_TMDB_API_KEY; 
 
 // TMDB API calls
 export const tmdbAPI = {

@@ -11,6 +11,14 @@
 # production
 /build
 
+# API Keys and secrets
+.env*
+api-keys.txt
+secrets/
+
+# Local config
+config/local.js
+
 # misc
 .DS_Store
 .env.local
