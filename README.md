@@ -1,32 +1,56 @@
-# fullstack-movie-watchlist-app
-A full-stack web application for managing your movie watchlist with intelligent prioritization.
+# Project Name
+Brief description of what your project does and who it's for.
 
-## Tech Stack
-- **Frontend:** React, Axios, Bootstrap/CSS
-- **Backend:** Spring Boot, Spring Data JPA, PostgreSQL
-- **External API:** The Movie Database (TMDB)
+## Built With
+- **Frontend:** [![React][React.js]][React-url], [![Bootstrap][Bootstrap.com]][Bootstrap-url]
+- **Backend:** [![Spring Boot][Spring.io]][Spring-url], [![PostgreSQL][PostgreSQL.org]][PostgreSQL-url]
+- **API:** [![TMDB][TMDB.org]][TMDB-url] (TMDB)
 
 ## Features
-- Search for movies using TMDB API
-- Add movies to personal watchlist
-- Mark movies as watched and rate them
-- View watchlist and watched movies
+- Core feature 1
+- Core feature 2
+- Core feature 3
 
-## Setup Instructions
-[Coming soon]
+## Getting Started
 
-## Project Structure
-Database Relationships:
-- User to UserMovie: One-to-Many (one user has many UserMovie records)
-- Movie to UserMovie: One-to-Many (one movie can be in many users' lists)
-- User to Movie: Many-to-Many (through UserMovie as the join table)
+### Prerequisites
+- Node.js 18+
+- Java 17+
+- PostgreSQL
 
-Entity Design:
-- User Entity: id, username, email, password
-- Movie Entity: Stores only movie references (tmdbId) and caches poster URL (posterUrl) for faster loading with TMDB API
-- UserMovie Entity: userId, movieId, Movie "status" (0=watchlist, 1=watched), ratings are stored as "rating" field from 1-5 (increments of 0.5) as well as a dateAdded and dateWatched timestamps for easy sorting and tracking and future expansions - TODO: add personal notes section
+### Installation
+1. Clone the repo
+   ```bash
+   git clone https://github.com/username/repo-name.git
+   ```
+2. Install dependencies
+   ```bash
+   npm install
+   ```
+3. Set up environment variables
+   ```bash
+   cp .env.example .env
+   # Add your API keys
+   ```
+4. Run the application
+   ```bash
+   npm start
+   ```
 
-REST controllers to handle:
-- User operations (register, login)
-- Movie operations (search TMDB, get movie details)
-- UserMovie operations (add to watchlist, mark as watched, get user's lists)
+## Usage
+Quick example of how to use your project with a screenshot or code snippet.
+
+## Contributing
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## Contact
+Your Name - [@your_twitter](https://twitter.com/your_twitter) - email@example.com
+
+Project Link: [https://github.com/username/repo-name](https://github.com/username/repo-name)
