@@ -43,6 +43,7 @@
 
 ## Usage
 Quick example of how to use your project with a screenshot or code snippet.
+
 Step 1: Login/ Signup
 <img width="2553" height="952" alt="image" src="https://github.com/user-attachments/assets/0b0dcc0c-8c6e-4cfa-b534-c315717021b0" />
 
