@@ -3,13 +3,13 @@ Brief description of what your project does and who it's for.
 
 ## Built With
 - **Frontend:**
-  [![React][React.js]][React-url]
-  [![Bootstrap][Bootstrap.com]][Bootstrap-url]
+  ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+  ![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
 - **Backend:**
-  [![Spring Boot][Spring.io]][Spring-url]
-  [![PostgreSQL][PostgreSQL.org]][PostgreSQL-url]
+  ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
+  ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 - **API:**
-  [![TMDB][TMDB.org]][TMDB-url] (TMDB)
+  ![TMDB](https://img.shields.io/badge/TMDB-01B4E4?style=for-the-badge&logo=themoviedatabase&logoColor=white)
 
 ## Features
 - Core feature 1
