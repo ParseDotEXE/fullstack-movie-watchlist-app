@@ -1,5 +1,4 @@
-# Project Name
-Brief description of what your project does and who it's for.
+# Fullstack Movie Watchlist
 
 ## Built With
 - **Frontend:**
