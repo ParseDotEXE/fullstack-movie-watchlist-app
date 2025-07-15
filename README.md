@@ -45,12 +45,16 @@
 Quick example of how to use your project with a screenshot or code snippet.
 Step 1: Login/ Signup
 <img width="2553" height="952" alt="image" src="https://github.com/user-attachments/assets/0b0dcc0c-8c6e-4cfa-b534-c315717021b0" />
+
 Step 2: Main menu, select one of the three functions
 <img width="2549" height="726" alt="image" src="https://github.com/user-attachments/assets/ae7f251e-eb7e-4dcc-b92e-7f78f7caea75" />
+
 Step 3: Search for a movie and add to watchlist
 <img width="2515" height="1360" alt="image" src="https://github.com/user-attachments/assets/911d74f7-12d5-4851-a385-5e9622793dd3" />
+
 Step 4: View watchlist and mark any movie as watched
 <img width="2547" height="1133" alt="image" src="https://github.com/user-attachments/assets/eb2c763a-fc93-4196-a308-c10da961906c" />
+
 Step 5: Go to watched list and give your movie a rating
 <img width="2533" height="1244" alt="image" src="https://github.com/user-attachments/assets/d9810d1c-2116-4b00-b986-05756fe619d3" />
 
