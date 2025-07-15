@@ -2,9 +2,14 @@
 Brief description of what your project does and who it's for.
 
 ## Built With
-- **Frontend:** [![React][React.js]][React-url], [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-- **Backend:** [![Spring Boot][Spring.io]][Spring-url], [![PostgreSQL][PostgreSQL.org]][PostgreSQL-url]
-- **API:** [![TMDB][TMDB.org]][TMDB-url] (TMDB)
+- **Frontend:**
+  [![React][React.js]][React-url]
+  [![Bootstrap][Bootstrap.com]][Bootstrap-url]
+- **Backend:**
+  [![Spring Boot][Spring.io]][Spring-url]
+  [![PostgreSQL][PostgreSQL.org]][PostgreSQL-url]
+- **API:**
+  [![TMDB][TMDB.org]][TMDB-url] (TMDB)
 
 ## Features
 - Core feature 1
